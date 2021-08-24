@@ -4,7 +4,7 @@ import {Button, Container,Row} from 'react-bootstrap';
 function Addaccount() {
     const [accounts, setAccounts] = useState([]);
     const [account, setAccount] = useState("select");
-    const [Amount, setAmount] = useState();
+    const [query, setQuery] = useState();
     //const result = ['--Select--', 'Asset', "Liability", "Owner Equity", "Revenue", "Expense"];
     //http://127.0.0.1:8000/api/account npm install @material-ui/core
     useEffect(() => {
@@ -29,12 +29,32 @@ function Addaccount() {
         setAccount(selectacc);
         console.log(selectacc)
     }
+    const onHandleChange=async (e)=>{
+        const result=e.target.value;
+        //console.log(result)
+        setQuery(result)
+    }
+    const onSubmit= async ()=>{
+        const [ac_name, ah_id]=[query, account];
+        const item={ac_name,ah_id};
+        let submit= await fetch("http://127.0.0.1:8000/api/setaccount",{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json",
+                "Accept":"application/json"
+            },
+            body:JSON.stringify(item)
+        });
+        submit=await submit.json();
+        console.log("result",submit)
+        
+    }
     return (
         <Container className="col-sm-6 mt-3 offset-sm-3">
             <h2>Add Account</h2>
             <Row className='m-1'>
             Enter Account<br />
-            <input className="mb-3 mt-2" style={{ width: "100%" }} value={Amount} onChange={(e) => setAmount(e.target.value)}></input>
+            <input className="mb-3 mt-2" style={{ width: "100%" }} value={query} onChange={onHandleChange}></input>
             </Row>
             <Row className="m-1">
             Select Account Type
@@ -48,7 +68,7 @@ function Addaccount() {
             </select>
             </Row>
             <Row className='m-1'>
-            <Button variant="primary">Add Account</Button>
+            <Button variant="primary" onClick={onSubmit}>Add Account</Button>
             </Row>
         </Container>
     )

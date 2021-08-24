@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Button, Container, Row } from 'react-bootstrap';
 
 export const Transaction = () => {
+    
     const [debitAcc, setDebitAcc] = useState([]);
     const [creditAcc, setCreditAcc] = useState([]);
     const [date,setDate]=useState(new Date());
@@ -11,7 +12,7 @@ export const Transaction = () => {
     const [amount, setamount] = useState();
     const [description, setdescription] = useState("");
   //  const result = ['--Select--', 'Cash', "Account Payable", "Account Receivable"];
-
+  
     useEffect(() => {
         const getAcc = async () => {
             await fetch("http://127.0.0.1:8000/api/accountctrl")
@@ -57,7 +58,13 @@ export const Transaction = () => {
         setCAccount(selectacc)
         console.log(selectacc)
     }
-
+    const onDateChange=(e)=>{
+        const newdate=e.target.value;
+        const showdate=new Date(newdate);
+        const update=showdate.getFullYear()+'-'+(showdate.getMonth()+1)+'-'+showdate.getDate();
+        console.log(update);
+        setDate(update)
+    }
     async function SubmitForm(){
     
         const item={date,daccount,caccount,amount,description};
@@ -74,7 +81,7 @@ export const Transaction = () => {
         console.warn(result);
     }
 
-
+    
     return (
         <Container className="col-sm-6 offset-sm-3">
             <Row>
@@ -83,12 +90,12 @@ export const Transaction = () => {
             <>
                 <Row className="m-1">
                     Enter Transaction Date <br />
-                    <DatePickerComponent className='dcomp' placeholder='Enter Date' value={date} onChange={(e) => setDate(e.target.value)}></DatePickerComponent>
-                    {console.log("date",date)}
+                    <DatePickerComponent className='dcomp' placeholder='Enter Date' format='yyyy-MM-dd' value={date} onChange={onDateChange}></DatePickerComponent>
+                    
                 </Row>
                 <Row className="m-1">
                     Select Debit Account
-                    <select className="custom-select" id="dropdown-basic-button" value={daccount} onChange={onDebAccChange}>
+                    <select className="custom-select" id="dropdown-basic-button" type="date" value={daccount} onChange={onDebAccChange}>
                         <option value="select" disabled>--Select--</option>
                         {
                             debitAcc.map(daccount => (
