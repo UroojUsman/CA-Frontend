@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Container,Row} from 'react-bootstrap';
 
 function Addaccount() {
     const [accounts, setAccounts] = useState([]);
     const [account, setAccount] = useState("select");
+    const [Amount, setAmount] = useState();
     //const result = ['--Select--', 'Asset', "Liability", "Owner Equity", "Revenue", "Expense"];
     //http://127.0.0.1:8000/api/account npm install @material-ui/core
     useEffect(() => {
@@ -29,23 +30,27 @@ function Addaccount() {
         console.log(selectacc)
     }
     return (
-        <div className="col-sm-6 offset-sm-3">
+        <Container className="col-sm-6 mt-3 offset-sm-3">
             <h2>Add Account</h2>
+            <Row className='m-1'>
             Enter Account<br />
-            <input className="mb-2"></input>
-            <br />
+            <input className="mb-3 mt-2" style={{ width: "100%" }} value={Amount} onChange={(e) => setAmount(e.target.value)}></input>
+            </Row>
+            <Row className="m-1">
             Select Account Type
-            <select className="custom-select" id="dropdown-basic-button" value={account} onChange={onAccChange} >
-            <option value="select">--Select--</option>
+            <select className="custom-select mt-2 mb-3" id="dropdown-basic-button" value={account} onChange={onAccChange} >
+            <option value="select" disabled>--Select--</option>
             {
                         accounts.map(account => (
-                            <option value={account.value}>{account.name}</option>
+                            <option key={account.value} value={account.value}>{account.name}</option>
                         ))
                     }
             </select>
-            <br/>
+            </Row>
+            <Row className='m-1'>
             <Button variant="primary">Add Account</Button>
-        </div>
+            </Row>
+        </Container>
     )
 }
 export default Addaccount;
