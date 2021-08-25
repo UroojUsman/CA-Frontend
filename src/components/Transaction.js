@@ -1,8 +1,9 @@
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Row } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
-export const Transaction = () => {
+function Transaction (){
     
     const [debitAcc, setDebitAcc] = useState([]);
     const [creditAcc, setCreditAcc] = useState([]);
@@ -133,8 +134,10 @@ export const Transaction = () => {
                 </Row>
                 <br />
                 <Button variant="primary" className="m-1" onClick={SubmitForm}>Add Transaction</Button>
+                <span><Link to="/alltransaction"><Button variant="primary" className="m-1" >Show Transactions</Button></Link></span>
 
             </>
         </Container>
     )
 }
+export default Transaction;
