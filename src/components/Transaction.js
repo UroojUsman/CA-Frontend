@@ -4,10 +4,19 @@ import { Button, Container, Row } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 function Transaction (){
-    
+   
+    const DateInit=(e)=>{
+        const newdate=e;
+        const showdate=new Date(newdate);
+        const update=showdate.getFullYear()+'-'+(showdate.getMonth()+1)+'-'+showdate.getDate();
+       
+        return update;
+    }
+
+    const updateddate=DateInit(new Date());
     const [debitAcc, setDebitAcc] = useState([]);
     const [creditAcc, setCreditAcc] = useState([]);
-    const [date,setDate]=useState(new Date());
+    const [date,setDate]=useState(updateddate);
     const [daccount, setDAccount] = useState("select");
     const [caccount, setCAccount] = useState("select");
     const [amount, setamount] = useState();
@@ -59,12 +68,22 @@ function Transaction (){
         setCAccount(selectacc)
         console.log(selectacc)
     }
+
+    
     const onDateChange=(e)=>{
         const newdate=e.target.value;
         const showdate=new Date(newdate);
         const update=showdate.getFullYear()+'-'+(showdate.getMonth()+1)+'-'+showdate.getDate();
-        console.log(update);
+        console.log('Updated',update);
         setDate(update)
+    }
+    function ClearFields()
+    {
+        setDate(new Date())
+        setDAccount('select');
+        setCAccount('select');
+        setamount(0);
+        setdescription('');
     }
     async function SubmitForm(){
     
@@ -80,6 +99,10 @@ function Transaction (){
         })
         result= await result.json();
         console.warn(result);
+        if(result)
+        {
+            ClearFields();
+        }
     }
 
     

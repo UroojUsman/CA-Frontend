@@ -27,7 +27,7 @@ function Addaccount() {
     const onAccChange= (e) => {
         const selectacc = e.target.value;
         setAccount(selectacc);
-        console.log(selectacc)
+        
     }
     const onHandleChange=async (e)=>{
         const result=e.target.value;
@@ -46,8 +46,17 @@ function Addaccount() {
             body:JSON.stringify(item)
         });
         submit=await submit.json();
-        console.log("result",submit)
         
+        if(submit)
+        {
+            ClearFields();
+        }
+        
+    }
+    function ClearFields()
+    {
+        setQuery('');
+        setAccount('select');
     }
     return (
         <Container className="col-sm-6 mt-3 offset-sm-3">
