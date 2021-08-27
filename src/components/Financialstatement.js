@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Container, Row, Col,Button } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import { Table, Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import ReactToPdf from 'react-to-pdf';
+
+
+const ref = React.createRef();
+const options = {
+    orientation: 'landscape',
+    unit: 'in',
+    format: [15, 10]
+};
 
 function Financialstatement() {
     const [accounts, setAccounts] = useState([]);
@@ -169,9 +178,10 @@ function Financialstatement() {
 
 
     return (
-        <div>
-            <div className="one">
-            <h3 className='m-2 mb-3'>Income Statement</h3>
+        <>
+            <Container ref={ref}>
+                <Row  >
+                    <h3 className='m-2 mb-3'>Income Statement</h3>
                     <Table>
                         <tbody>
                             <tr>
@@ -190,11 +200,10 @@ function Financialstatement() {
 
                         </tbody>
                     </Table>
-                    <Link to="/alltransaction"><Col><Button variant="success" className="sm m-2" >Back</Button></Col></Link>
-            </div>
-            
-            <div className="two">
-            <h3 className='m-2 mb-3'>Balance Sheet</h3>
+
+                </Row>
+                <Row>
+                    <h3 className='m-2 mb-3'>Balance Sheet</h3>
                     <Table>
                         <tbody>
                             <tr>
@@ -213,12 +222,17 @@ function Financialstatement() {
 
                         </tbody>
                     </Table>
-            </div>
-              
-                    
-           
-            
-        </div>
+                </Row>
+            </Container>
+            <Container>
+                <Link to="/alltransaction"><Button variant="success" className="sm m-2" >Back</Button></Link>
+                <ReactToPdf targetRef={ref} filename="Financialstatements.pdf" options={options}>
+                    {({ toPdf }) => (
+                        <Button variant="primary" className="sm m-2" onClick={toPdf}>Generate pdf</Button>
+                    )}
+                </ReactToPdf>
+            </Container>
+        </>
     )
 
 

@@ -1,6 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { Table, Container,Col,Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import ReactToPdf from 'react-to-pdf';
+
+
+const ref = React.createRef();
+const options = {
+    orientation: 'landscape',
+    unit: 'in',
+    format: [15, 10]
+};
 
 function Adjusted() {
     const [accounts, setAccounts] = useState([]);
@@ -62,7 +71,8 @@ function Adjusted() {
           
       }
       return (
-          <Container>
+          <>
+          <Container  ref={ref}>
                <h1 className='m-2 mb-3'>Adjusted Trial & Balance</h1>
               <Table>
                   <tbody>
@@ -76,8 +86,17 @@ function Adjusted() {
                       
                   </tbody>
               </Table>
-              <Link to="/alltransaction"><Col><Button variant="success" className="sm m-2" >Back</Button></Col></Link>
+              
           </Container>
+          <Container>
+            <Link to="/alltransaction"><Button variant="success" className="sm m-2" >Back</Button></Link>
+            <ReactToPdf targetRef={ref} filename="adjusted.pdf" options={options}>
+                {({ toPdf }) => (
+                    <Button variant="primary" className="sm m-2" onClick={toPdf}>Generate pdf</Button>
+                )}
+            </ReactToPdf>
+            </Container>
+          </>
       )
 
 
