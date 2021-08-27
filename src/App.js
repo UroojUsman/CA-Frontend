@@ -5,6 +5,10 @@ import Header from './components/Header';
 import Addaccount from './components/Addaccount';
 import Alltransaction from './components/Alltransaction';
 import UpdateTransaction from './components/UpdateTransaction';
+import Unadjusted from './components/Unadjusted';
+import Adjusted from './components/Adjusted';
+import Financialstatement from './components/Financialstatement';
+import Postclosing from './components/Postclosing';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 function App() {
@@ -23,6 +27,18 @@ function App() {
         </Route>
         <Route path='/updateTransaction/:id'>
           <UpdateTransaction/>
+        </Route>
+        <Route path='/unadjusted'>
+          <Unadjusted />
+        </Route>
+        <Route path='/adjusted'>
+          <Adjusted />
+        </Route>
+        <Route path='/financialstatement'>
+          <Financialstatement />
+        </Route>
+        <Route path='/postclosing'>
+          <Postclosing />
         </Route>
       </BrowserRouter>
     </div>

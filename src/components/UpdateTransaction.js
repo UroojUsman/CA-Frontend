@@ -1,8 +1,8 @@
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Row } from 'react-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
-import Select from 'react-select';
+import { withRouter } from 'react-router-dom';
+
 
 
 
@@ -87,7 +87,7 @@ function UpdateTransaction(props) {
 
 
 
-    useEffect(async () => {
+    useEffect(() => {
         /*    let result= await fetch('http://127.0.0.1:8000/api/transaction/'+props.match.params.id);
              result=await result.json();*/
         const getEntry = async () => {

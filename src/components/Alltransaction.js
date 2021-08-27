@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Table,Button } from 'react-bootstrap';
+import { Table,Button,Container,Row,Col } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 function Alltransactions() {
@@ -34,8 +34,10 @@ function Alltransactions() {
   }
 
     return (
-        <div>
+        <Container>
+            
             <h1 className='m-2 mb-3'>Transactions</h1>
+            <Row className="m">
            <Table className='m-2'>
                <tbody>
                <tr>
@@ -63,8 +65,17 @@ function Alltransactions() {
                }
                </tbody>
            </Table>
-           <Link to="/addtransaction"><Button variant="success" className="sm m-2" >Create new Transaction</Button></Link>
-        </div>
+           </Row>
+           <Row className="m">
+           <Link to="/addtransaction"><Col><Button variant="success" className="sm m-2" >Create new Transaction</Button></Col></Link>
+                <Link to="/unadjusted"><Col><Button variant="primary" className="sm m-2" >Unadjusted T&B</Button></Col></Link>
+                <Link to="/adjusted"><Col><Button variant="primary" className="sm m-2" >Adjusted T&B</Button></Col></Link>
+                <Link to="/financialstatement"><Col><Button variant="primary" className="sm m-2" >Financial Statements</Button></Col></Link>
+                <Link to="/postclosing"><Col><Button variant="primary" className="sm m-2" >Post-Closing T&B</Button></Col></Link>
+
+            </Row>
+           
+           </Container>
     )
 }
 
