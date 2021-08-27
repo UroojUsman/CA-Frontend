@@ -6,6 +6,8 @@ function Addaccount() {
     const [account, setAccount] = useState("select");
     const [query, setQuery] = useState();
     const [term, setTerm] = useState([]);
+    const [AccountError, setAccountError] = useState("");
+    const [AccTypeError, setAccTypeError] = useState("");
     //const result = ['--Select--', 'Asset', "Liability", "Owner Equity", "Revenue", "Expense"];
     //http://127.0.0.1:8000/api/account npm install @material-ui/core
     useEffect(() => {
@@ -35,6 +37,31 @@ function Addaccount() {
         //console.log(result)
         setQuery(result)
     }
+
+    const Validator = () => {
+        let AccountError = "";
+        let AccountTypeError = "";
+        if (!query) {
+            AccountError = 'Account name is required';
+            setAccountError(AccountError);
+            console.log(AccountError);
+        }
+        if (account ==="select") {
+            AccountTypeError = "Account Type must be selected ";
+            setAccTypeError(AccountTypeError);
+            console.log(AccountTypeError);
+            console.log(account);
+        }
+        if( AccountError || AccountTypeError)
+        {   
+            AccountError = "";
+            AccountTypeError = "";
+            return false;
+        }
+        return true;
+
+    }
+
     useEffect(() => {
         const getAcc = async () => {
             await fetch("http://127.0.0.1:8000/api/accountctrl")
@@ -48,6 +75,8 @@ function Addaccount() {
     }, []);
 
     const onSubmit = async () => {
+        const isValid = Validator();
+        if (isValid) {
         const [ac_name, ah_id] = [query, account];
         const item = { ac_name, ah_id }
         const sample = term.filter(T => T.ac_name.toUpperCase() === ac_name.toUpperCase())
@@ -70,7 +99,7 @@ function Addaccount() {
             console.log("Account Already Exist")
 
         }
-
+    }
 
     }
     function ClearFields() {
