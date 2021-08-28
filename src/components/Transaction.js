@@ -2,6 +2,7 @@ import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Row, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 function Transaction() {
 
@@ -123,7 +124,7 @@ function Transaction() {
     }
 
     function ClearFields() {
-
+        setDate(updateddate)
         setDAccount('select');
         setCAccount('select');
         setamount(0);
@@ -143,22 +144,31 @@ function Transaction() {
                     "Accept": 'application/json'
                 }
             })
-            result = await result.json();
-            console.warn(result);
-            if (result.hasOwnProperty('message')) {
-                <Alert variant='success'>
-                    {result.message}
-                    {console.log('alert',result.message)}
-                </Alert>
-                ClearFields();
-            }
-            else{
-                <Alert variant='danger'>
-                    {result.error}
-                </Alert>
-            }
+            .then(response=> {
+                if(response.status==200)
+                {
+                    swal({
+                        title:'Success',
+                        text:"Transaction Created Successfully",
+                        icon:'success',
+                        button:'Ok'
+                    })
+                }
+                else{
+                    
+                    swal({
+                        title:'Error',
+                        text:"Oops something went wrong",
+                        icon:'warning',
+                        button:'Try Again'
+                    })
+                }
+            });
+            ClearFields();
+           
         }
     }
+    
 
 
     return (

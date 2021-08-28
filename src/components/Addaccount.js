@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Row } from 'react-bootstrap';
+import { Button, Container, Row,Alert } from 'react-bootstrap';
+import swal from 'sweetalert'
 
 function Addaccount() {
     const [accounts, setAccounts] = useState([]);
     const [account, setAccount] = useState("select");
-    const [query, setQuery] = useState();
+    const [query, setQuery] = useState('');
     const [term, setTerm] = useState([]);
     const [AccountError, setAccountError] = useState("");
     const [AccTypeError, setAccTypeError] = useState("");
@@ -89,25 +90,41 @@ function Addaccount() {
                     "Accept": "application/json"
                 },
                 body: JSON.stringify(item)
+                
+            })
+            .then(response=> {
+                if(response.status==201)
+                {
+                    swal({
+                        title:'Success',
+                        text:'Account Created Successfully',
+                        icon:'success',
+                        button:'Ok'
+                    })
+                }
             });
-            submit = await submit.json();
-            console.log("result", submit)
+
             ClearFields();
         }
         else{
 
-            console.log("Account Already Exist")
+            swal({
+                title: "Account Already Exist",
+                icon: "warning",
+              });
 
         }
     }
 
     }
+    
     function ClearFields() {
         setQuery('');
         setAccount('select');
     }
     return (
         <Container className="col-sm-6 mt-3 offset-sm-3">
+          
             <h2>Add Account</h2>
             <Row className='m-1'>
                 Enter Account<br />

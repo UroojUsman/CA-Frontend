@@ -1,13 +1,11 @@
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Row } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-
-
-
+import { withRouter,Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 function UpdateTransaction(props) {
-    console.log('props', props);
+    //console.log('props', props);
 
     const DateInit = (e) => {
         const newdate = e;
@@ -26,7 +24,7 @@ function UpdateTransaction(props) {
     const [daccount, setDAccount] = useState('Select');
     const [caccount, setCAccount] = useState('Select');
     const [amount, setamount] = useState();
-    const [description, setdescription] = useState();
+    const [description, setdescription] = useState("");
 
 
 
@@ -60,10 +58,35 @@ function UpdateTransaction(props) {
                    "Accept":'application/json'
                }
            })
-           result= await result.json();
-           console.warn('result',result);
+           .then(response=> {
+               console.log(response.status)
+            if(response.status==200)
+            {
+                swal({
+                    title:'Success',
+                    text:'Transaction Updated Successfully',
+                    icon:'success',
+                    button:'Ok'
+                })
+            }
+            else{
+                swal({
+                    title:'Error',
+                    text:"Oops something went wrong",
+                    icon:'warning',
+                    button:'Try Again'
+                })
+            }
+        });
+        ClearFields();
            
        
+    }
+    function ClearFields() {
+        setDAccount('select');
+        setCAccount('select');
+        setamount(0);
+        setdescription('');
     }
 
     useEffect(() => {
@@ -169,7 +192,7 @@ function UpdateTransaction(props) {
                     </Row>
                     <br />
                     <Button variant="primary" className="m-1" onClick={() => { SubmitForm(data.t_id) }}>Update Transaction</Button>
-
+                    <span><Link to="/alltransaction"><Button variant="primary" className="m-1" >Show Transactions</Button></Link></span>
                 </>
             </Container>
         </div>

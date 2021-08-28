@@ -14,6 +14,10 @@ const options = {
 function Unadjusted() {
 
     const [accounts, setAccounts] = useState([]);
+    const [name, setName]=useState([]);
+    const [ID,setId]= useState([]);
+    const [deb,setDebit]=useState([]);
+    const [cred, setCredit]= useState([]);
 
     useEffect(() => {
         const getAcc = async () => {
@@ -21,7 +25,7 @@ function Unadjusted() {
                 .then((response) => response.json())
                 .then((data) => {
                     setAccounts(data)
-                    console.log(data)
+                   // console.log(data)
                 });
         };
         getAcc();
@@ -37,6 +41,7 @@ function Unadjusted() {
             if (value !== 0) {
 
                 return <tr key={account.ac_id}>
+                   
                     <td>{account.ac_name}</td>
                     <td>{value > 0 ? value : ""}</td>
                     <td>{value < 0 ? -(value) : ""}</td>
@@ -44,7 +49,7 @@ function Unadjusted() {
             }
 
         }
-
+       
     })
 
 
@@ -79,7 +84,7 @@ function Unadjusted() {
             <Container ref={ref}>
 
                 <h1 className='m-2 mb-3'>Un-Adjusted Trial & Balance</h1>
-                <Table>
+                <Table striped bordered>
                     <tbody>
                         <tr>
                             <td><h5>Accounts</h5></td>
@@ -97,7 +102,7 @@ function Unadjusted() {
             <Link to="/alltransaction"><Button variant="success" className="sm m-2" >Back</Button></Link>
             <ReactToPdf targetRef={ref} filename="Unadjusted.pdf" options={options}>
                 {({ toPdf }) => (
-                    <Button variant="primary" className="sm m-2" onClick={toPdf}>Generate pdf</Button>
+                    <Button variant="primary" className="sm m-2" onClick={toPdf}>Download as pdf</Button>
                 )}
             </ReactToPdf>
             </Container>

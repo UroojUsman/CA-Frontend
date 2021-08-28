@@ -74,7 +74,7 @@ function Adjusted() {
           <>
           <Container  ref={ref}>
                <h1 className='m-2 mb-3'>Adjusted Trial & Balance</h1>
-              <Table>
+              <Table striped bordered>
                   <tbody>
                       <tr>
                           <td><h5>Accounts</h5></td>
@@ -92,7 +92,7 @@ function Adjusted() {
             <Link to="/alltransaction"><Button variant="success" className="sm m-2" >Back</Button></Link>
             <ReactToPdf targetRef={ref} filename="adjusted.pdf" options={options}>
                 {({ toPdf }) => (
-                    <Button variant="primary" className="sm m-2" onClick={toPdf}>Generate pdf</Button>
+                    <Button variant="primary" className="sm m-2" onClick={toPdf}>Download as pdf</Button>
                 )}
             </ReactToPdf>
             </Container>

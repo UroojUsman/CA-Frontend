@@ -182,7 +182,7 @@ function Financialstatement() {
             <Container ref={ref}>
                 <Row  >
                     <h3 className='m-2 mb-3'>Income Statement</h3>
-                    <Table>
+                    <Table striped bordered>
                         <tbody>
                             <tr>
                                 <td></td>
@@ -204,7 +204,7 @@ function Financialstatement() {
                 </Row>
                 <Row>
                     <h3 className='m-2 mb-3'>Balance Sheet</h3>
-                    <Table>
+                    <Table striped bordered>
                         <tbody>
                             <tr>
                                 <td></td>
@@ -228,7 +228,7 @@ function Financialstatement() {
                 <Link to="/alltransaction"><Button variant="success" className="sm m-2" >Back</Button></Link>
                 <ReactToPdf targetRef={ref} filename="Financialstatements.pdf" options={options}>
                     {({ toPdf }) => (
-                        <Button variant="primary" className="sm m-2" onClick={toPdf}>Generate pdf</Button>
+                        <Button variant="primary" className="sm m-2" onClick={toPdf}>Download as pdf</Button>
                     )}
                 </ReactToPdf>
             </Container>

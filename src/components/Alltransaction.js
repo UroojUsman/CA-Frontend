@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Table,Button,Container,Row,Col } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import swal from 'sweetalert';
 
 function Alltransactions() {
     const[transactions,setTransaction]=useState([]);
@@ -19,9 +20,28 @@ function Alltransactions() {
     {
         let result = await fetch('http://127.0.0.1:8000/api/delete/'+id,{
             method:'DELETE'
+        })
+        .then(response=> {
+            console.log(response.status)
+            if(response.status==200)
+            {
+                swal({
+                    title:'Success',
+                    text:'Account Deleted Successfully',
+                    icon:'success',
+                    button:'Ok'
+                })
+            }
+            else{
+                swal({
+                    title:'Error',
+                    text:"Oops something went wrong",
+                    icon:'warning',
+                    button:'Try Again'
+                })
+            }
         });
-        result= await result.json();
-        console.log(result);
+        
         gettransaction();
     }
   async function gettransaction()
