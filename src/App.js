@@ -9,13 +9,18 @@ import Unadjusted from './components/Unadjusted';
 import Adjusted from './components/Adjusted';
 import Financialstatement from './components/Financialstatement';
 import Postclosing from './components/Postclosing';
-import { BrowserRouter, Route } from 'react-router-dom';
+import Home from './components/Home';
+
+import { BrowserRouter, Route,Redirect } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Header />
+        <Route path='/Home'>
+          <Home />
+        </Route>
         <Route path='/addtransaction'>
           <Transaction />
         </Route>
@@ -40,6 +45,7 @@ function App() {
         <Route path='/postclosing'>
           <Postclosing />
         </Route>
+        
       </BrowserRouter>
     </div>
   );

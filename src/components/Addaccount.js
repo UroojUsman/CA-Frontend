@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Row,Alert } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import swal from 'sweetalert'
 
 function Addaccount() {
@@ -143,6 +144,9 @@ function Addaccount() {
             </Row>
             <Row className='m-1'>
                 <Button variant="primary" onClick={onSubmit}>Add Account</Button>
+            </Row>
+            <Row>
+            <center><Link to="/addtransaction"><Button variant="success" className="sm m-2" >Proceed</Button></Link></center>
             </Row>
         </Container>
     )

@@ -52,6 +52,16 @@ function Alltransactions() {
          setTransaction(data)
     });
   }
+  async function postClosing(){
+    await fetch("http://127.0.0.1:8000/api/closing", {
+        method: 'POST',
+        body: JSON.stringify(),
+        headers: {
+            "Content-Type": 'application/json',
+            "Accept": 'application/json'
+        }
+    })
+  }
 
     return (
         <Container>
@@ -66,7 +76,7 @@ function Alltransactions() {
                    <td><h5>Credit Account</h5></td>
                    <td><h5>Amount</h5></td>
                    <td><h5>Description</h5></td>
-
+                   <td></td>
                </tr>
                {
                    transactions.map((transaction)=>
@@ -86,14 +96,14 @@ function Alltransactions() {
                </tbody>
            </Table>
            </Row>
-           <Row className="m">
-           <Link to="/addtransaction"><Col><Button variant="success" className="sm m-2" >Create new Transaction</Button></Col></Link>
-                <Link to="/unadjusted"><Col><Button variant="primary" className="sm m-2" >Unadjusted T&B</Button></Col></Link>
-                <Link to="/adjusted"><Col><Button variant="primary" className="sm m-2" >Adjusted T&B</Button></Col></Link>
-                <Link to="/financialstatement"><Col><Button variant="primary" className="sm m-2" >Financial Statements</Button></Col></Link>
-                <Link to="/postclosing"><Col><Button variant="primary" className="sm m-2" >Post-Closing T&B</Button></Col></Link>
+           <div className="row">
+           <div className='col'><Link to="/addtransaction"><Button variant="success" className="sm m-2" >Create new Transaction</Button></Link></div>
+                <div className='col'><Link to="/unadjusted"><Button variant="primary" className="sm m-2" >Unadjusted T&B</Button></Link></div>
+                <div className='col'><Link to="/adjusted"><Button variant="primary" className="sm m-2" >Adjusted T&B</Button></Link></div>
+                <div className='col'><Link to="/financialstatement"><Button variant="primary" className="sm m-2" >Financial Statements</Button></Link></div>
+                <div className='col'><Link to="/postclosing"><Button variant="primary" className="sm m-2"  onClick={postClosing}>Post-Closing T&B</Button></Link></div>
 
-            </Row>
+            </div>
            
            </Container>
     )

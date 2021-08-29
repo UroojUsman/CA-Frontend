@@ -14,10 +14,7 @@ const options = {
 function Unadjusted() {
 
     const [accounts, setAccounts] = useState([]);
-    const [name, setName]=useState([]);
-    const [ID,setId]= useState([]);
-    const [deb,setDebit]=useState([]);
-    const [cred, setCredit]= useState([]);
+
 
     useEffect(() => {
         const getAcc = async () => {
