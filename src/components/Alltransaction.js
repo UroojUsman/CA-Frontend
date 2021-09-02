@@ -63,6 +63,18 @@ function Alltransactions() {
     })
   }
 
+  async function TrialBalance(){
+    await fetch("http://127.0.0.1:8000/api/trialBalance", {
+        method: 'POST',
+        body: JSON.stringify(),
+        headers: {
+            "Content-Type": 'application/json',
+            "Accept": 'application/json'
+        }
+    })
+  }
+  
+
     return (
         <Container>
             
@@ -98,8 +110,8 @@ function Alltransactions() {
            </Row>
            <div className="row">
            <div className='col'><Link to="/addtransaction"><Button variant="success" className="sm m-2" >Create new Transaction</Button></Link></div>
-                <div className='col'><Link to="/unadjusted"><Button variant="primary" className="sm m-2" >Unadjusted T&B</Button></Link></div>
-                <div className='col'><Link to="/adjusted"><Button variant="primary" className="sm m-2" >Adjusted T&B</Button></Link></div>
+                <div className='col'><Link to="/unadjusted"><Button variant="primary" className="sm m-2" onClick={TrialBalance} >Unadjusted T&B</Button></Link></div>
+                <div className='col'><Link to="/adjusted"><Button variant="primary" className="sm m-2" onClick={TrialBalance}>Adjusted T&B</Button></Link></div>
                 <div className='col'><Link to="/financialstatement"><Button variant="primary" className="sm m-2" >Financial Statements</Button></Link></div>
                 <div className='col'><Link to="/postclosing"><Button variant="primary" className="sm m-2"  onClick={postClosing}>Post-Closing T&B</Button></Link></div>
 

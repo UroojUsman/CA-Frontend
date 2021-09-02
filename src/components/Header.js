@@ -24,6 +24,9 @@ function Header() {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/addtransaction">Add Transaction</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/alltransaction">Transaction</NavLink>
+                            </li>
                             
                         </ul>
                        

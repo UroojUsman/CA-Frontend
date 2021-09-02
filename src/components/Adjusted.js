@@ -30,16 +30,17 @@ function Adjusted() {
      
       const showList = accounts.map((account) => {
           
-              const value=account.ac_debit-account.ac_credit
-              console.log((account.ac_debit & account.ac_credit))
+             // const value=account.ac_debit-account.ac_credit
+             // console.log((account.ac_debit & account.ac_credit))
              if((account.ac_debit | account.ac_credit)!=0){
-                 if(value!==0){
-                  return <tr key={account.ac_id}>
-                  <td>{account.ac_name}</td>
-                  <td>{value>0? value :""}</td>
-                  <td>{value<0? -(value): ""}</td>
-              </tr>
-                 }
+                
+                return <tr key={account.ac_id}>
+                   
+                <td>{account.ac_name}</td>
+                <td>{account.ac_debit!=0 ? account.ac_debit : ""}</td>
+                <td>{account.ac_credit!=0 ? account.ac_credit : ""}</td>
+            </tr>
+                 
               
              }
               

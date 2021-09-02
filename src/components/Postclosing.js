@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Table, Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ReactToPdf from 'react-to-pdf';
+import swal from 'sweetalert';
 
 const ref = React.createRef();
 const options = {
@@ -73,16 +74,7 @@ function Postclosing() {
         </tr>
 
     }
-    async function newCycle(){
-        await fetch("http://127.0.0.1:8000/api/newCycle", {
-            method: 'POST',
-            body: JSON.stringify(),
-            headers: {
-                "Content-Type": 'application/json',
-                "Accept": 'application/json'
-            }
-        })
-      }
+    
 
     return (
         <>
@@ -111,7 +103,7 @@ function Postclosing() {
                     <Button variant="primary" className="sm m-2" onClick={toPdf}>Download as pdf</Button>
                 )}
             </ReactToPdf>
-            <Link to="/addaccount"><Button variant="success" className="sm m-2"  onClick={newCycle}>Generate New Cycle</Button></Link>
+           
             </Container>
         </>
 

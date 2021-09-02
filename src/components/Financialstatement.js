@@ -13,6 +13,10 @@ const options = {
 
 function Financialstatement() {
     const [accounts, setAccounts] = useState([]);
+    const [netIncome, setnetIncome] = useState();
+    const [rev, setrev] = useState();
+    const [exp, setexp] = useState();
+   
 
 
     useEffect(() => {
@@ -25,6 +29,20 @@ function Financialstatement() {
                 });
         };
         getAcc();
+
+    }, []);
+
+    useEffect(() => {
+        const getNet = async () => {
+            await fetch("http://127.0.0.1:8000/api/getNetIncome")
+                .then((response) => response.json())
+                .then((data) => {
+                    setnetIncome(data);
+                    
+                });
+        };
+        getNet();
+        console.log(netIncome)
 
     }, []);
 
@@ -85,8 +103,7 @@ function Financialstatement() {
                         <td>{account.ac_name}</td>
                         <td>{value > 0 ? value : ""}</td>
                         <td>{value < 0 ? -(value) : ""}</td>
-                        <td></td>
-                        <td></td>
+                        
                     </tr>
                 }
             }
@@ -106,8 +123,7 @@ function Financialstatement() {
                         <td>{account.ac_name}</td>
                         <td>{value > 0 ? value : ""}</td>
                         <td>{value < 0 ? -(value) : ""}</td>
-                        <td></td>
-                        <td></td>
+                        
                     </tr>
                 }
             }
@@ -115,7 +131,28 @@ function Financialstatement() {
 
     })
 
+    /*useEffect(() => {
+        var Rev=0;
+        var Exp=0;
+        const getNetInc = async () => {
+           accounts.map(acc=>{
+            if ((acc.ah_id) === 4 || (acc.ah_id === 5)) {
+               Rev=Rev+acc.ac_credit;
+               Exp=Exp+acc.ac_debit;
+              
+            }
+           })
+          
+        };
+        getNetInc();
+        setrev(Rev)
+        setexp(Exp)
+        setnetIncome(Rev-Exp)
+        console.log(Rev)
+         console.log(Exp)
 
+       
+    }, []);*/
 
     const totalSum = () => {
 
@@ -125,32 +162,36 @@ function Financialstatement() {
             if ((a.ah_id) === 4 || (a.ah_id === 5)) {
                 const value = a.ac_debit - a.ac_credit
                 if (value > 0) {
-                    debs = debs + value
+                    debs += value;
                     console.log(debs)
                 }
                 else if (value < 0) {
-                    creds = creds - value
+                    creds -=  value;
                     console.log(creds)
                 }
+               
             }
-
-
-        });
-        return <tr>
+           
+        }
+        
+        );
+        
+        
+        return (<tr>
             <td></td>
             <td><h4>Total</h4></td>
             <td><h4>{debs}</h4></td>
             <td><h4>{creds}</h4></td>
             <td><h4>Net Income =</h4></td>
-            <td><h4>{creds - debs}</h4></td>
-        </tr>
+            <td><h4>{netIncome}</h4></td>
+        </tr>);
     }
     const totalSum1 = () => {
 
         var debs = 0;
         var creds = 0;
         accounts.map(a => {
-            if ((a.ah_id) === 1 || (a.ah_id === 2) || (a.ah_id === 3)) {
+            if ((a.ah_id) === 1) {
                 const value = a.ac_debit - a.ac_credit
                 if (value > 0) {
                     debs = debs + value
@@ -167,13 +208,38 @@ function Financialstatement() {
         return <tr>
             <td></td>
             <td><h4>Total</h4></td>
-            <td><h4>{debs}</h4></td>
-            <td><h4>{creds}</h4></td>
-            <td><h4>Net Income =</h4></td>
-            <td><h4>{debs - creds}</h4></td>
+            <td><h4>{debs-creds}</h4></td>
+            <td></td>
         </tr>
     }
 
+    const totalSum2 = () => {
+
+        var debs = 0;
+        var creds = 0;
+        accounts.map(a => {
+            if ((a.ah_id === 2) || (a.ah_id === 3)) {
+                const value = a.ac_debit - a.ac_credit
+                if (value > 0) {
+                    debs = debs + value
+                    console.log(debs)
+                }
+                else if (value < 0) {
+                    creds = creds - value
+                    console.log(creds)
+                }
+            }
+
+
+        });
+        return <tr>
+            <td></td>
+            <td><h4>Total</h4></td>
+            <td><h4></h4></td>
+            <td><h4>{netIncome+creds-debs}</h4></td>
+            
+        </tr>
+    }
 
 
 
@@ -211,14 +277,22 @@ function Financialstatement() {
                                 <td><h5>Accounts</h5></td>
                                 <td><h5>Debit</h5></td>
                                 <td><h5>Credit</h5></td>
-                                <td></td>
-                                <td></td>
+                               
                             </tr>
                             <td><h4>Assets</h4></td>
                             {showAsset}
+                            {totalSum1()}
                             <td><h4>L & O.E</h4></td>
                             {showLOE}
-                            {totalSum1()}
+                            <tr>
+                                <td></td>
+                                <td>Net Income</td>
+                                <td>{netIncome <0?-(netIncome):""}</td>
+                                <td>{netIncome>0?netIncome:""}</td>
+                               
+                            </tr>                            
+                            {totalSum2()}
+                            
 
                         </tbody>
                     </Table>
